@@ -15,7 +15,9 @@ module APB_master
     output reg PWRITE = 0               // сигнал записи или чтения на вход слейва
 );
 
-function void apb_write(input  [31:0] inp_addr, input  [31:0] inp_data); // функция записи
+task apb_write; // функция записи
+input  [31:0] inp_addr;
+ input  [31:0] inp_data;
 begin
   PSEL = 1'd1;        // поднимаем флаг выбора устройства
   PADDR = inp_addr;   // передаем адрес на входе мастера в слейв
@@ -29,9 +31,10 @@ begin
      PENABLE = !PENABLE; // убираем  сигнал PENABLE
    end
 end
-endfunction
+endtask
 
-function void apb_read(input [31:0] inp_addr); //функция чтения из слейва
+task apb_read; //функция чтения из слейва
+input [31:0] inp_addr;
 begin
   if(!PREADY)
   begin
@@ -47,7 +50,7 @@ begin
      PENABLE = !PENABLE;
    end
 end
-endfunction
+endtask
 
 // циклы записи и чтения интерфейса APB
 always @(posedge PCLK) 

@@ -63,12 +63,12 @@ always @(control_reg) begin // вычисление значения sin(x)
 
     else if(((control_reg)%8 == 1) || ((control_reg)%8 == 3)) // если угол = 3pi/4 + 2pi*k или pi/4 + 2pi*k (45 или 135 градусов)
     begin
-      output_reg <= (32'00111111001101010000010011110011); // sqrt(2)/2
+      output_reg <= (32'b00111111001101010000010011110011); // sqrt(2)/2
     end
 
     else if(((control_reg)%8 == 5) || ((control_reg)%8 == 7)) // если угол = -3pi/4 + 2pi*k или -pi/4 + 2pi*k (135 или 315 градусов)
     begin
-      output_reg <= (32'00111111001101010000010011110011); // -sqrt(2)/2
+      output_reg <= ~(32'b00111111001101010000010011110011); // -sqrt(2)/2
     end
 
     else // иначе
